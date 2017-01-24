@@ -3,27 +3,14 @@
 Принять во внимание второй опциональный параметр"""
 
 
-def my_xrange(*args):
+def my_xrange(stop, start=0, step=1):
     """function has a functionality of xrange()"""
-
-    try:
-        if len(args) == 1:
-            num = 0
-            while num < +args[0]:
-                yield num
-                num += 1
-        elif len(args) == 2:
-            num = args[0]
-            while num < +args[1]:
-                yield num
-                num += 1
-        elif len(args) == 3:
-            num = args[0]
-            var = +args[2]
-            while num < +args[1]:
-                yield num
-                num += var
-        else:
-            print('Function expected at most 3 arguments')
-    except TypeError:
+    if start:
+        stop, start = start, stop
+    if all(isinstance(item, int) for item in [start, stop, step]):
+        num = start
+        while num < stop:
+            yield num
+            num += step
+    else:
         print('Function expected integer argument')
