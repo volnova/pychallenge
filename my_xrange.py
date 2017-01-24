@@ -6,18 +6,24 @@
 def my_xrange(*args):
     """function has a functionality of xrange()"""
 
-    if len(args) == 1:
-        num = 0
-        while num < args[0]:
-            yield num
-            num += 1
-    elif len(args) == 2:
-        num = args[0]
-        while num < args[1]:
-            yield num
-            num += 1
-    elif len(args) == 3:
-        num = args[0]
-        while num < args[1]:
-            yield num
-            num += args[2]
+    try:
+        if len(args) == 1:
+            num = 0
+            while num < +args[0]:
+                yield num
+                num += 1
+        elif len(args) == 2:
+            num = args[0]
+            while num < +args[1]:
+                yield num
+                num += 1
+        elif len(args) == 3:
+            num = args[0]
+            var = +args[2]
+            while num < +args[1]:
+                yield num
+                num += var
+        else:
+            print('Function expected at most 3 arguments')
+    except TypeError:
+        print('Function expected integer argument')
