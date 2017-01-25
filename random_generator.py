@@ -26,11 +26,15 @@ def validator(num_of_str, len_of_str=0, num_of_digits=1):
     if not len_of_str:
         len_of_str = random.randint(1, 80)
 
-    try:
-        for _ in range(num_of_str):
+    if all(isinstance(item, int) for item in
+           [num_of_str, len_of_str, num_of_digits])\
+            and len_of_str >= num_of_digits:
+        while num_of_str:
             for i in random_generator(len_of_str):
                 if sum(c.isdigit() for c in i) == +num_of_digits:
                     yield i
+                    num_of_str -= 1
                     break
-    except TypeError:
-        print('Function expected integer argument')
+    else:
+        print('Function expected integer argument and number of '
+              'digits is must be less or equal than lenght of srting')
