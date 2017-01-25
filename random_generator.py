@@ -31,7 +31,7 @@ def validator(num_of_str, len_of_str=0, num_of_digits=1):
             and len_of_str >= num_of_digits:
         while num_of_str:
             for i in random_generator(len_of_str):
-                if sum(c.isdigit() for c in i) == +num_of_digits:
+                if sum(c.isdigit() for c in i) == num_of_digits:
                     yield i
                     num_of_str -= 1
                     break
