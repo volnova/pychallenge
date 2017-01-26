@@ -17,19 +17,18 @@ def request_to_site():
     try:
         request = requests.get('https://www.google.com/search',
                                params={'q': my_str})
+        try:
+            root = html.fromstring(request.text)
+            results_list = root.xpath(".//*[@class='kv']/cite")
+            for i in range(3):
+                print(results_list[i].xpath('string()'))
+        except IndexError:
+            print "At your request no results were found. "\
+                "Please, check your request."
+            request_to_site()
     except requests.exceptions.ConnectionError:
         print "No connection to site"
         exit(1)
-
-    try:
-        root = html.fromstring(request.text)
-        results_list = root.xpath(".//*[@class='kv']/cite")
-        for i in range(3):
-            print(results_list[i].xpath('string()'))
-    except IndexError:
-        print "At your request no results were found. "\
-              "Please, check your request."
-        request_to_site()
 
 
 if __name__ == '__main__':
