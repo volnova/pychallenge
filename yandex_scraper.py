@@ -11,12 +11,17 @@ def request_to_site():
     try:
         request = requests.get('https://www.yandex.ru/search',
                                params={'text': my_str})
-        try:
-            root = html.fromstring(request.text)
-            results_list = root.xpath(".//a[contains(@class, 'link_cropped_no')]/@href")
+        root = html.fromstring(request.text)
+        
+        message = root.xpath("string(.//div[@class='misspell__message'])").split('.')
+        if message:
+            print message[0]
+
+        results_list = root.xpath(".//a[contains(@class, 'link_cropped_no')]/@href")
+        if results_list:
             for i in results_list:
                 print i
-        except IndexError:
+        else:
             print "At your request no results were found. "\
                 "Please, check your request."
             request_to_site()
